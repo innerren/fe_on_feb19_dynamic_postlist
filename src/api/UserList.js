@@ -1,10 +1,9 @@
 import React from "react";
 import { getUsers } from "./api.js";
 
-
 class UserList extends React.Component {
   state = {
-    users: null,
+    users: null
   };
 
   async componentDidMount() {
@@ -13,12 +12,10 @@ class UserList extends React.Component {
     this.setState({ users: users });
   }
 
- list = users =>
+  list = users =>
     users.map(user => (
       <li className="" id={user.id} key={user.id}>
-        <div>
-          {user.username}
-        </div>
+        <div>{user.username}</div>
         <div>
           <button
             className="loadPosts"

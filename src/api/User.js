@@ -9,18 +9,10 @@ class User extends React.Component {
   subData = user => {
     return (
       <ul className="user-list">
-        <li>
-          {user.username}
-        </li>
-        <li>
-          {user.name}
-        </li>
-        <li>
-          {user.email}
-        </li>
-        <li>
-          {`${user.address.city} ${user.address.street}`}
-        </li>
+        <li>{user.username}</li>
+        <li>{user.name}</li>
+        <li>{user.email}</li>
+        <li>{`${user.address.city} ${user.address.street}`}</li>
       </ul>
     );
   };
@@ -33,11 +25,7 @@ class User extends React.Component {
 
   render() {
     const user = this.state.user;
-    return (
-      <div>
-        {user ? this.subData(user) : <h2> Loading... </h2>}
-      </div>
-    );
+    return <div>{user ? this.subData(user) : <h2> Loading... </h2>}</div>;
   }
 }
 

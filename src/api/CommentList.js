@@ -2,14 +2,9 @@ import React from "react";
 import Coment from "./Coment";
 
 class CommentList extends React.Component {
-
-
   list = () =>
     this.props.comments.map(coment => (
-      <Coment 
-      key={coment.id}
-      coment = {coment}
-      />
+      <Coment key={coment.id} coment={coment} />
     ));
 
   render() {

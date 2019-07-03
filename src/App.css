@@ -1,5 +1,5 @@
-body{
-    background-color: #209090;
+body {
+  background-color: #209090;
 }
 
 .App {
@@ -11,16 +11,16 @@ body{
   height: 100%;
 }
 
-li{
-   list-style-type: none;
+li {
+  list-style-type: none;
 }
 
-header{
+header {
   flex-basis: 15%;
   background-color: #277;
 }
 
-.main{
+.main {
   flex-basis: 80%;
   display: flex;
   flex-flow: row nowrap;
@@ -28,13 +28,12 @@ header{
   align-content: center;
 }
 
-.comments{
+.comments {
   display: flex;
   justify-content: flex-end;
 }
 
-.comments-list{
+.comments-list {
   flex-basis: 85%;
   background-color: #009c9c;
-
 }
