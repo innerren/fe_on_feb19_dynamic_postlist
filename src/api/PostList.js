@@ -6,61 +6,64 @@ import Post from "./Post";
 class PostList extends React.Component {
   state = {
     posts: [],
-    filtr: ""
+    filtredPosts: [],
   };
 
   async componentDidMount() {
     const posts = await getPosts(this.props.userId);
 
-    this.setState({ posts: posts });
+    this.setState({ posts: posts,
+                    filtredPosts: posts});
   }
 
   handleSubmit = event => {
-    let task = this.refs.textFilter.value;
-    this.setState({ filtr: task });
-    this.refs.textFilter.value = "";
-    event.preventDefault();
+    let filtr = event.target.value;
+    if (event.key === "Enter") {
+      event.target.value = "";
+    }
+    let newPosts = this.filtred(this.state.posts, filtr);
+      this.setState((prevstate) => {
+        if (prevstate.filtredPosts.length !== newPosts.length){
+          return {filtredPosts: newPosts}
+        }
+      }) 
   };
 
-  setFilter = event => {
-    if (event.key === "Enter") {
-      let task = event.target.value;
-      event.target.value = "";
-      this.setState({ filtr: task });
-    }
-  };
+  filtred = (posts,filtr) => {
+    return posts.filter(
+      post =>
+        post.title.toLowerCase().includes(filtr) ||
+        post.body.toLowerCase().includes(filtr)
+    ).map((post) => {
+        const newTitle = post.title.replace(`${filtr}`,`<span style="background-color: yellow">${filtr}</span>`);
+        const newBody = post.body.replace(`${filtr}`,`<span style="background-color: yellow">${filtr}</span>`);
+        return{...post,
+              title: newTitle,
+              body: newBody}
+    })
+  }
 
   list = posts =>
     posts.map(post => (
-      <Post key={post.id} post={post} filtr={this.state.filtr} />
+      <Post key={post.id} post={post} />
     ));
 
   render() {
-    const posts = this.state.posts;
-    const filtred = posts.filter(
-      post =>
-        post.title.indexOf(this.state.filtr) !== -1 ||
-        post.body.indexOf(this.state.filtr) !== -1
-    );
+    const {filtredPosts} = this.state;
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
             placeholder="Input filter text"
             name="inputFilter"
             autoFocus=""
             autoComplete="off"
-            ref={"textFilter"}
+            onChange={this.handleSubmit}
           />
-        </form>
-        {this.state.filtr !== "" ? (
-          <div>{`You find posts with: ${this.state.filtr} `}</div>
-        ) : null}
         <div className="main">
           <User userId={this.props.userId} />
           <ul className="post-list">
-            {posts ? this.list(filtred) : <h2> Loading... </h2>}
+            {filtredPosts ? this.list(filtredPosts) : <h2> Loading... </h2>}
           </ul>
         </div>
       </div>
