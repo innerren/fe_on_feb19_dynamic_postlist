@@ -20,8 +20,8 @@ class Post extends React.Component {
     const comments = this.state.comments;
     return (
       <li key={post.id}>
-        <h3 dangerouslySetInnerHTML={{__html: post.title}}/>
-        <div dangerouslySetInnerHTML={{__html: post.body}}/>
+        <h3 dangerouslySetInnerHTML={{ __html: post.title }} />
+        <div dangerouslySetInnerHTML={{ __html: post.body }} />
         <button
           className="loadComents"
           onClick={() => {
